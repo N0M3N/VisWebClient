@@ -2,10 +2,10 @@
   <span id="logo">
     Stavebni denik a dochazka zamestnancu
   </span>
-  <nav class="navbar row">
-    <a>Detail zakazky</a>
-    <a>Novy zaznam deniku</a>
-    <a>Kalkulace</a>
+  <nav class="navbar row" *ngIf="currentUser">
+    <a [routerLink]="['/detail']">Detail zakazky</a>
+    <a [routerLink]="['/denik']" *ngIf="currentUser.jeZamestnanec">Novy zaznam deniku</a>
+    <a [routerLink]="['kalkulace']" *ngIf="currentUser.jeZamestnanec">Kalkulace</a>
   </nav>
 </header>
 <router-outlet></router-outlet>

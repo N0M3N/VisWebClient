@@ -1,0 +1,5 @@
+<form [formGroup]="loginForm" class="form form-group">
+  <input type="text" formControlName="login" class="form-control" placeholder="Login">
+  <input type="password" formControlName="password" class="form-control" placeholder="Password">
+  <a class="btn btn-primary" (click)="OnSubmit()">Log In</a>
+</form>
