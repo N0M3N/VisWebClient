@@ -1,8 +1,8 @@
 import { Component, OnInit, Output } from '@angular/core';
 import { FormBuilder, Validators, FormGroup, FormControl } from '@angular/forms';
 import { EventEmitter } from 'events';
-import { LoginModel } from 'src/shared/models/login.model';
-import { LoginApiService } from 'src/shared/services/login.service';
+import { LoginModel } from '../shared/models/login.model';
+import { LoginApiService } from '../shared/services/login.service';
 
 @Component({
   selector: 'app-login',

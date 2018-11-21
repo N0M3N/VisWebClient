@@ -9,6 +9,6 @@ export class LoginApiService {
     constructor(private http: HttpClient) { }
 
     public login(login: LoginModel) : Observable<IUzivatel> {
-        return this.http.post<IUzivatel>('localhost:3407/api/login', login, {headers: {"permissions": ["localhost:3407"]}});   
+        return this.http.post<IUzivatel>('http://localhost:3407/login', login);
     }
 }

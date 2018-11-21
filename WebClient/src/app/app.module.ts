@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http'
 
-import { LoginApiService } from '../shared/services/login.service';
+import { LoginApiService } from './shared/services/login.service';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';

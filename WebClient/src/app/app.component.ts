@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IUzivatel } from 'src/shared/models/uzivatel.model';
+import { IUzivatel } from './shared/models/uzivatel.model';
 
 @Component({
   selector: 'app-root',
