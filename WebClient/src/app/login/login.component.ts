@@ -39,4 +39,9 @@ export class LoginComponent implements OnInit {
       })
     }
   }
+
+  controlValid(controlName: string) : boolean {
+    var control = this.loginForm.controls[controlName];
+    return !control.valid && (control.touched || control.dirty);
+  }
 }

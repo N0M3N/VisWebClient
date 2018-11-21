@@ -1,11 +1,11 @@
-<header class="row container">
-  <span id="logo">
-    Stavebni denik a dochazka zamestnancu
-  </span>
-  <nav class="navbar row" *ngIf="currentUser">
+<header class="row">
+  <span id="logo" class="px-5 py-2 col-12 col-sm-12 col-md-12 col-lg-7">Stavebni denik a dochazka zamestnancu</span>
+  <nav class="navbar row col-12 col-sm-12 col-md-12 col-lg-5" *ngIf="currentUser">
     <a [routerLink]="['/detail']">Detail zakazky</a>
     <a [routerLink]="['/denik']" *ngIf="currentUser.jeZamestnanec">Novy zaznam deniku</a>
     <a [routerLink]="['kalkulace']" *ngIf="currentUser.jeZamestnanec">Kalkulace</a>
   </nav>
 </header>
-<router-outlet></router-outlet>
+<main class="container">
+  <router-outlet class="container col-12 col-sm-12 col-md-8 col-lg-8"></router-outlet>
+</main>

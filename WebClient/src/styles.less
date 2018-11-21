@@ -1,1 +1,35 @@
 /* You can add global styles to this file, and also import other style files */
+@accent1: #CAD2C5;
+@accent2: #84A98C;
+@accent3: #52796F;
+@accent4: #354F52;
+@accent5: #2F3E46;
+
+body {
+    background-color: @accent1;
+
+    header {
+        background-color: @accent5;
+
+        #logo {
+            color: @accent3;
+            font-size: 1.6em;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+    }
+
+    .form-control {
+        border: @accent5 2px solid;
+        background-color: @accent2;
+
+        &.btn {
+            border: none;
+            background-color: @accent5;
+            color: @accent1;
+
+            &:disabled {
+                background-color: @accent3;
+            }
+        }
+    }
+}
