@@ -6,7 +6,8 @@ export class SessionStorageService {
     private uzivatelKey = "current-user";
 
     GetCurrentUser() : IUzivatel {
-        return JSON.parse(sessionStorage.getItem(this.uzivatelKey));
+        var user = JSON.parse(sessionStorage.getItem(this.uzivatelKey));
+        return user;
     }
 
     SetCurrentUser(uzivatel : IUzivatel) : void {

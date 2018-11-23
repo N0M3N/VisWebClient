@@ -2,15 +2,17 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http'
+import { ReactiveFormsModule } from '@angular/forms';
+import { BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { MatButtonModule, MatCheckboxModule, MatTableModule } from '@angular/material';
 
 import { LoginApiService } from './shared/services/login.service';
+import { ZakazkaApiService } from './shared/services/zakazka.service';
+import { SessionStorageService } from './shared/services/local-storage.service';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
-import { ReactiveFormsModule } from '@angular/forms';
-import { SessionStorageService } from './shared/services/local-storage.service';
 import { HomeComponent } from './home/home.component';
-import { ActionsEnum } from './shared/enums/actionsEnum';
 import { ListZakazekComponent } from './list-zakazek/list-zakazek.component';
 import { StavebniDenikComponent } from './stavebni-denik/stavebni-denik.component';
 import { DetailZakazkyComponent } from './detail-zakazky/detail-zakazky.component';
@@ -24,18 +26,24 @@ import { KalkulaceComponent } from './kalkulace/kalkulace.component';
     ListZakazekComponent,
     StavebniDenikComponent,
     DetailZakazkyComponent,
-    KalkulaceComponent
+    KalkulaceComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    BrowserAnimationsModule,
+    MatTableModule,
+    MatButtonModule,
+    MatCheckboxModule
   ],
   providers: [
     LoginApiService,
+    ZakazkaApiService,
     SessionStorageService
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  
 })
 export class AppModule { }
