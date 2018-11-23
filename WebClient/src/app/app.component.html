@@ -7,13 +7,13 @@
     <div *ngIf="currentUser()" class="navbar-collapse collapse dual-collapse2 flex-row-reverse">
       <ul class="navbar-nav">
         <li class="nav-item">
-          <a class="nav-link" href="#">Detail zakazky</a>
+          <a class="nav-link" [routerLink]="['/list', 'Detail']">Detail zakazky</a>
         </li>
         <li *ngIf="currentUser()?.JeZamestnanec" class="nav-item">
-          <a class="nav-link" href="#">Stavebni denik</a>
+          <a class="nav-link"  [routerLink]="['/list', 'Denik']">Stavebni denik</a>
         </li>
         <li *ngIf="currentUser()?.JeZamestnanec" class="nav-item">
-          <a class="nav-link" href="#">Kalkulace</a>
+          <a class="nav-link"  [routerLink]="['/list', 'Kalkulace']">Kalkulace</a>
         </li>
       </ul>
     </div>
