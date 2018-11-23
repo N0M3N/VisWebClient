@@ -1,9 +1,22 @@
-<header class="row">
-  <span id="logo" class="px-5 py-2 col-12 col-sm-12 col-md-12 col-lg-7">Stavebni denik a dochazka zamestnancu</span>
-  <nav class="navbar row col-12 col-sm-12 col-md-12 col-lg-5" *ngIf="currentUser">
-    <a [routerLink]="['/detail']">Detail zakazky</a>
-    <a [routerLink]="['/denik']" *ngIf="currentUser.jeZamestnanec">Novy zaznam deniku</a>
-    <a [routerLink]="['kalkulace']" *ngIf="currentUser.jeZamestnanec">Kalkulace</a>
+<header>
+  <nav class="navbar navbar-expand-lg navbar-dark container-flex">
+    <span class="navbar-brand text-truncate">Stavebni denik a dochazka zamestnancu</span>
+    <button *ngIf="currentUser()" class="navbar-toggler float-right" type="button" data-toggle="collapse" data-target=".dual-collapse2">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div *ngIf="currentUser()" class="navbar-collapse collapse dual-collapse2 flex-row-reverse">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" href="#">Detail zakazky</a>
+        </li>
+        <li *ngIf="currentUser()?.JeZamestnanec" class="nav-item">
+          <a class="nav-link" href="#">Stavebni denik</a>
+        </li>
+        <li *ngIf="currentUser()?.JeZamestnanec" class="nav-item">
+          <a class="nav-link" href="#">Kalkulace</a>
+        </li>
+      </ul>
+    </div>
   </nav>
 </header>
 <main class="container">

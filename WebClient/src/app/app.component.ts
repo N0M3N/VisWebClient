@@ -1,14 +1,24 @@
 import { Component } from '@angular/core';
 import { IUzivatel } from './shared/models/uzivatel.model';
+import { SessionStorageService } from './shared/services/local-storage.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.less']
 })
-
 export class AppComponent {
-  public currentUser : IUzivatel;
-
+  private uzivatel : IUzivatel;
   title = 'WebClient';
+
+  constructor(
+    private sessionStorageService: SessionStorageService
+    ){}
+
+  currentUser(): IUzivatel {
+    if(this.uzivatel == null){
+      this.uzivatel = this.sessionStorageService.GetCurrentUser();
+    }
+    return this.uzivatel;
+  }
 }

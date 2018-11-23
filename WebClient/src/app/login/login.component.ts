@@ -3,11 +3,12 @@ import { FormBuilder, Validators, FormGroup, FormControl } from '@angular/forms'
 import { EventEmitter } from 'events';
 import { LoginModel } from '../shared/models/login.model';
 import { LoginApiService } from '../shared/services/login.service';
+import { SessionStorageService } from '../shared/services/local-storage.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.less']
+  templateUrl: './login.component.html'
 })
 
 export class LoginComponent implements OnInit {
@@ -15,13 +16,18 @@ export class LoginComponent implements OnInit {
 
   private loginForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private loginApi: LoginApiService) {
+  constructor(
+    private router: Router,
+    private fb: FormBuilder,
+    private loginApi: LoginApiService,
+    private sessionStorage: SessionStorageService) {
     this.loginForm = this.fb.group({
       login: new FormControl("", Validators.required),
       password: new FormControl("", Validators.required)});
   }
 
   ngOnInit() {
+    sessionStorage.clear();
   }
 
   OnSubmit(){
@@ -32,7 +38,8 @@ export class LoginComponent implements OnInit {
 
       this.loginApi.login(model)
       .subscribe(x => {
-        console.log(x);
+        this.sessionStorage.SetCurrentUser(x);
+        this.router.navigate(["home"]);
       },
       e => {
         console.log(e);

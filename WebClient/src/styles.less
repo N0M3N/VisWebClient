@@ -6,30 +6,45 @@
 @accent5: #2F3E46;
 
 body {
-    background-color: @accent1;
+  background-color: @accent1;
 
-    header {
-        background-color: @accent5;
+  header {
+    background-color: @accent5;
 
-        #logo {
-            color: @accent3;
-            font-size: 1.6em;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
+  nav {
+    .navbar-brand {
+      color: @accent3 !important;
+      font-size: 1.6em !important;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
     }
 
-    .form-control {
-        border: @accent5 2px solid;
-        background-color: @accent2;
-
-        &.btn {
-            border: none;
-            background-color: @accent5;
-            color: @accent1;
-
-            &:disabled {
-                background-color: @accent3;
-            }
-        }
+    .navbar-toggler {
+      background-color: @accent4 !important;
     }
+
+    .nav-link {
+      color: @accent1 !important;
+      background-color: @accent4 !important;
+      margin: 5px;
+      text-align: center;
+      min-width: 150px;
+      border-radius: 5px;
+    }
+  }
+}
+
+.form-control {
+  border: @accent5 2px solid;
+  background-color: @accent2;
+
+    &.btn {
+      border: none;
+      background-color: @accent5;
+      color: @accent1;
+
+      &:disabled {
+          background-color: @accent3;
+      }
+    }
+  }
 }
