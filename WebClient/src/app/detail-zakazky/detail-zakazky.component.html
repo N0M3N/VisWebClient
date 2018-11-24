@@ -1,3 +1,32 @@
-<p>
-  detail-zakazky works!
-</p>
+<div>
+  <h1 class="col-12"><span class="mr-3 badge badge-secondary">{{zakazka.Stav}}</span>{{zakazka.Nazev}}</h1>
+  
+  <div class="d-flex flex-wrap">
+    <div class="col-12 col-sm-12 col-md-6 col-lg-6 p-0">
+      <details open class="m-1">
+        <summary>Zakaznik</summary>
+        <div>{{zakazka.Zakaznik.Jmeno}} {{zakazka.Zakaznik.Prijmeni}}</div>
+        <div>{{zakazka.Zakaznik.Telefon}}</div>
+      </details>
+    </div>
+    <div class="col-12 col-sm-12 col-md-6 col-lg-6 p-0">
+      <details open class="m-1">
+        <summary>Zodpovedny zamestnanec</summary>
+        <div>{{zakazka.ZodpovednyZamestnanec.Jmeno}} {{zakazka.ZodpovednyZamestnanec.Prijmeni}}</div>
+        <div>{{zakazka.ZodpovednyZamestnanec.Telefon}}</div>
+      </details>
+    </div>
+    <div class="col-12 p-0">
+      <details open class="m-1">
+        <summary>Adresa</summary>
+        {{zakazka.Adresa}}
+      </details>
+    </div>
+    <div class="col-12 p-0">
+      <details open class="m-1">
+        <summary>Stavebni denik</summary>
+        <app-stavebni-denik zakazka="zakazka"></app-stavebni-denik>
+      </details>
+    </div>
+  </div>
+</div>

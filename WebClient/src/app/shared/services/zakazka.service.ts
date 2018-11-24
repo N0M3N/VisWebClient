@@ -10,6 +10,10 @@ export class ZakazkaApiService {
     constructor(private http: HttpClient) { }
     
     public getAll(uzivatel: IUzivatel) : Observable<IZakazka[]> {
-        return this.http.get<IZakazka[]>('http://localhost:3407/zakazka/' + uzivatel.Id);
+        return this.http.post<IZakazka[]>('http://localhost:3407/zakazka', uzivatel);
+    }
+
+    public getById(id: number) : Observable<IZakazka> {
+        return this.http.get<IZakazka>('http://localhost:3407/zakazka/' + id);
     }
 }
