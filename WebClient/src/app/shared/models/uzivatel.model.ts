@@ -1,8 +1,8 @@
 export interface IUzivatel {
-    id: number;
-    jmeno: string;
-    prijmeni: string;
-    adresa: string;
-    jeZamestnanec: boolean;
-    jeZakaznik: boolean;
+    Id: number;
+    Jmeno: string;
+    Prijmeni: string;
+    Adresa: string;
+    JeZamestnanec: boolean;
+    JeZakaznik: boolean;
 }

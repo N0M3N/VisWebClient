@@ -13,8 +13,13 @@ import { SessionStorageService } from '../shared/services/local-storage.service'
 export class ListZakazekComponent implements OnInit {
   private zakazky$: Observable<IZakazka[]>;
 
-  displayedColumns: string[] = [
-    'Nazev'
+  displayedColumns = [
+    'Nazev',
+    'Zakaznik',
+    'Stavbyvedouci',
+    'Adresa',
+    'Deadline',
+    'Stav'
   ]
   constructor(
     private route: ActivatedRoute,
@@ -26,5 +31,4 @@ export class ListZakazekComponent implements OnInit {
       this.zakazky$ = this.zakazkaService.getAll(this.sessionStorageService.GetCurrentUser());
     })
   }
-
 }

@@ -1,10 +1,10 @@
 import { IUzivatel } from "./uzivatel.model";
 
 export interface IZakazka {
-    nazev : string;
-    zakaznik: IUzivatel;
-    zodpovednyZamestnanec: IUzivatel;
-    stav: string;
-    adresa: string;
-    deadline: string;    
+    Nazev : string;
+    Zakaznik: IUzivatel;
+    ZodpovednyZamestnanec: IUzivatel;
+    Stav: string;
+    Adresa: string;
+    Deadline: string;    
 }
