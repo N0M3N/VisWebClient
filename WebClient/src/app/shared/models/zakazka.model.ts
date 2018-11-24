@@ -1,6 +1,7 @@
 import { IUzivatel } from "./uzivatel.model";
 
 export interface IZakazka {
+    Id: number;
     Nazev : string;
     Zakaznik: IUzivatel;
     ZodpovednyZamestnanec: IUzivatel;

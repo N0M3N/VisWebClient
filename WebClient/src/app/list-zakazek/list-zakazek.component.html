@@ -1,36 +1,48 @@
-<div>Vyberte zakazku, pro kterou chcete zpracovat nasledujici krok</div>
 <table mat-table [dataSource]="zakazky$" class="col-12 mat-elevation-z8">
+
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
   <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+  <mat-row matColumnDef="select">
+    <th mat-header-cell *matHeaderCellDef></th>
+    <td mat-cell *matCellDef="let zakazka">
+      <mat-checkbox (click)="$event.stopPropagation()"
+        (change)="$event ? selection.toggle(zakazka) : null"
+        [checked]="selection.isSelected(zakazka)">
+      </mat-checkbox>
+    </td>
+  </mat-row>
 
   <mat-row matColumnDef="Nazev">
     <th mat-header-cell *matHeaderCellDef>Nazev</th>
     <td mat-cell *matCellDef="let zakazka">{{zakazka.Nazev}}</td>
-</mat-row>
+  </mat-row>
 
-<mat-row matColumnDef="Zakaznik">
-  <th mat-header-cell *matHeaderCellDef>Zakaznik</th>
-  <td mat-cell *matCellDef="let zakazka">{{zakazka.Zakaznik.Jmeno}} {{zakazka.Zakaznik.Prijmeni}}</td>
-</mat-row>
+  <mat-row matColumnDef="Zakaznik">
+    <th mat-header-cell *matHeaderCellDef>Zakaznik</th>
+    <td mat-cell *matCellDef="let zakazka">{{zakazka.Zakaznik.Jmeno}} {{zakazka.Zakaznik.Prijmeni}}</td>
+  </mat-row>
 
-<mat-row matColumnDef="Stavbyvedouci">
-  <th mat-header-cell *matHeaderCellDef>Stavbyvedouci</th>
-  <td mat-cell *matCellDef="let zakazka">{{zakazka.ZodpovednyZamestnanec.Jmeno}} {{zakazka.ZodpovednyZamestnanec.Prijmeni}}</td>
-</mat-row>
+  <mat-row matColumnDef="Stavbyvedouci">
+    <th mat-header-cell *matHeaderCellDef>Stavbyvedouci</th>
+    <td mat-cell *matCellDef="let zakazka">{{zakazka.ZodpovednyZamestnanec.Jmeno}} {{zakazka.ZodpovednyZamestnanec.Prijmeni}}</td>
+  </mat-row>
 
-<mat-row matColumnDef="Adresa">
-  <th mat-header-cell *matHeaderCellDef>Adresa</th>
-  <td mat-cell *matCellDef="let zakazka">{{zakazka.Adresa}}</td>
-</mat-row>
+  <mat-row matColumnDef="Adresa">
+    <th mat-header-cell *matHeaderCellDef>Adresa</th>
+    <td mat-cell *matCellDef="let zakazka">{{zakazka.Adresa}}</td>
+  </mat-row>
 
-<mat-row matColumnDef="Deadline">
-  <th mat-header-cell *matHeaderCellDef>Deadline</th>
-  <td mat-cell *matCellDef="let zakazka">{{zakazka.Deadline}}</td>
-</mat-row>
+  <mat-row matColumnDef="Deadline">
+    <th mat-header-cell *matHeaderCellDef>Deadline</th>
+    <td mat-cell *matCellDef="let zakazka">{{zakazka.Deadline}}</td>
+  </mat-row>
 
-<mat-row matColumnDef="Stav">
-  <th mat-header-cell *matHeaderCellDef>Stav</th>
-  <td mat-cell *matCellDef="let zakazka">{{zakazka.Stav}}</td>
-</mat-row>
+  <mat-row matColumnDef="Stav">
+    <th mat-header-cell *matHeaderCellDef>Stav</th>
+    <td mat-cell *matCellDef="let zakazka">{{zakazka.Stav}}</td>
+  </mat-row>
 
 </table>
+
+<a class="nav-link float-right" [routerLink]="getUrl()" *ngIf="selection.hasValue()">Pokracovat</a>

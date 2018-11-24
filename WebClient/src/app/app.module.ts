@@ -4,7 +4,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http'
 import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import { MatInputModule, MatPaginatorModule, MatProgressSpinnerModule, MatSortModule, MatTableModule } from "@angular/material";
+import { MatInputModule, MatCheckboxModule, MatPaginatorModule, MatProgressSpinnerModule, MatSortModule, MatTableModule } from "@angular/material";
 import { LoginApiService } from './shared/services/login.service';
 import { ZakazkaApiService } from './shared/services/zakazka.service';
 import { SessionStorageService } from './shared/services/local-storage.service';
@@ -37,7 +37,8 @@ import { KalkulaceComponent } from './kalkulace/kalkulace.component';
     MatInputModule,
     MatPaginatorModule,
     MatProgressSpinnerModule,
-    MatSortModule
+    MatSortModule,
+    MatCheckboxModule
   ],
   providers: [
     LoginApiService,
