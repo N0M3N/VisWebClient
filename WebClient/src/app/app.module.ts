@@ -19,6 +19,7 @@ import { StavebniDenikComponent } from './stavebni-denik/stavebni-denik.componen
 import { DetailZakazkyComponent } from './detail-zakazky/detail-zakazky.component';
 import { KalkulaceComponent } from './kalkulace/kalkulace.component';
 import { StavebniDenikFormComponent } from './stavebni-denik-form/stavebni-denik-form.component';
+import { LoaderComponent } from './loader/loader.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { StavebniDenikFormComponent } from './stavebni-denik-form/stavebni-denik
     DetailZakazkyComponent,
     KalkulaceComponent,
     StavebniDenikFormComponent,
+    LoaderComponent,
   ],
   imports: [
     BrowserModule,

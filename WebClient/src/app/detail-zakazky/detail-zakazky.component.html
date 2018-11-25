@@ -1,4 +1,4 @@
-<div>
+<div *ngIf="zakazka;">
   <h1 class="col-12"><span class="mr-3 badge badge-secondary">{{zakazka.Stav}}</span>{{zakazka.Nazev}}</h1>
   
   <div class="d-flex flex-wrap">
@@ -30,3 +30,4 @@
     </div>
   </div>
 </div>
+<app-loader *ngIf="!zakazka"></app-loader>

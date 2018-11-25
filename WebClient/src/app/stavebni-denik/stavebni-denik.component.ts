@@ -11,6 +11,11 @@ import { StavebniDenikApiService } from '../shared/services/stavebni-denik.servi
 export class StavebniDenikComponent implements OnInit {
   @Input() zakazka : IZakazka;
   private zaznamy$: Observable<IStavebniDenik[]>;
+  private displayedColumns: string[] = [
+    'Datum',
+    'Zamestnanec',
+    'Popis'
+  ]
 
   constructor(private stavebniDenikService: StavebniDenikApiService) { }
 
