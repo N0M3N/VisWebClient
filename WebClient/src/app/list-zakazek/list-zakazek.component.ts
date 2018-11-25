@@ -30,7 +30,6 @@ export class ListZakazekComponent implements OnInit {
     private sessionStorageService: SessionStorageService) 
   {
     this.route.params.subscribe(x => {
-      debugger;
       this.zakazky$ = this.zakazkaService.getAll(this.sessionStorageService.GetCurrentUser());
       this.selection = new SelectionModel<IZakazka>(false, [], true);
       this.nextPage = x.next;
