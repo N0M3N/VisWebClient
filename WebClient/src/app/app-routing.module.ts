@@ -6,6 +6,7 @@ import { StavebniDenikComponent } from './stavebni-denik/stavebni-denik.componen
 import { DetailZakazkyComponent } from './detail-zakazky/detail-zakazky.component';
 import { KalkulaceComponent } from './kalkulace/kalkulace.component';
 import { ListZakazekComponent } from './list-zakazek/list-zakazek.component';
+import { StavebniDenikFormComponent } from './stavebni-denik-form/stavebni-denik-form.component';
 
 const routes: Routes = [
   {
@@ -15,7 +16,7 @@ const routes: Routes = [
     path: 'home', component: HomeComponent
   },
   {
-    path: "Denik/:id", component: StavebniDenikComponent
+    path: "Denik/:id", component: StavebniDenikFormComponent
   },
   {
     path: "Detail/:id", component: DetailZakazkyComponent

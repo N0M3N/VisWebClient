@@ -11,11 +11,8 @@ export class DetailZakazkyComponent implements OnInit {
   private zakazka: IZakazka;
 
   constructor(private route: ActivatedRoute,
-    private zakazkaService: ZakazkaApiService) { 
-    
-  }
-
-  ngOnInit() {
+    private zakazkaService: ZakazkaApiService) 
+  { 
     this.route.params.subscribe(x => {
       this.zakazkaService.getById(x.id).subscribe(y => {
         this.zakazka = y;
@@ -23,7 +20,10 @@ export class DetailZakazkyComponent implements OnInit {
       e => {
         console.log(e);
       })
-    });
+    });    
+  }
+
+  ngOnInit() {
   }
 
 }

@@ -20,7 +20,8 @@ export class LoginComponent implements OnInit {
     private router: Router,
     private fb: FormBuilder,
     private loginApi: LoginApiService,
-    private sessionStorage: SessionStorageService) {
+    private sessionStorage: SessionStorageService)
+  {
     this.loginForm = this.fb.group({
       login: new FormControl("", Validators.required),
       password: new FormControl("", Validators.required)});
