@@ -5,6 +5,6 @@ export interface IStavebniDenik {
     Id: number;
     Zakazka: IZakazka;
     Zamestnanec: IUzivatel;
-    Datum: Date;
+    Datum: string;
     Popis: string;
 }

@@ -3,7 +3,7 @@
   <div class="d-flex justify-content-center">
     <form [formGroup]="stavebniDenikForm" class="form form-group col-12">
       <div class="form-group py-1 px-0 col-12 col-sm-6 col-md-5 col-lg-4">
-        <input type="date" formControlName="datum" class="form-control">
+        <input type="date" formControlName="datum" class="form-control" placeholder="Datum">
         <span *ngIf="controlValid('datum')" class="float-right badge badge-danger">Required</span>
       </div>
       <div class="form-group py-1">
@@ -13,5 +13,5 @@
       <button [disabled]="stavebniDenikForm.invalid" class="form-control btn btn-primary my-2" (click)="OnSubmit()">Odeslat</button>
     </form>
   </div>
-  <app-stavebni-denik zakazka="zakazka"></app-stavebni-denik>
+  <app-stavebni-denik [zaznamy$]="zaznamyDeniku$"></app-stavebni-denik>
 </div>

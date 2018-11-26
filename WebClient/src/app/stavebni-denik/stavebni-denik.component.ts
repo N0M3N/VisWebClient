@@ -9,18 +9,16 @@ import { StavebniDenikApiService } from '../shared/services/stavebni-denik.servi
   templateUrl: './stavebni-denik.component.html'
 })
 export class StavebniDenikComponent implements OnInit {
-  @Input() zakazka : IZakazka;
-  private zaznamy$: Observable<IStavebniDenik[]>;
+  @Input() zaznamy$ : Observable<IStavebniDenik[]>;
+
   private displayedColumns: string[] = [
     'Datum',
     'Zamestnanec',
     'Popis'
   ]
 
-  constructor(private stavebniDenikService: StavebniDenikApiService) { }
+  constructor() { }
 
-  ngOnInit() {
-    this.zaznamy$ = this.stavebniDenikService.ZaznamyZakazky(this.zakazka);
-  }
+  ngOnInit() {  }
 
 }

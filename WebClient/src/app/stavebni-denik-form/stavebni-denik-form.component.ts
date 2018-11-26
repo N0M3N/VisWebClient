@@ -6,6 +6,8 @@ import { ZakazkaApiService } from '../shared/services/zakazka.service';
 import { StavebniDenikApiService } from '../shared/services/stavebni-denik.service';
 import { IStavebniDenik } from '../shared/models/stavebni-denik.model';
 import { SessionStorageService } from '../shared/services/local-storage.service';
+import { StavebniDenikPostModel } from '../shared/models/stavebni-denik-post.model';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-stavebni-denik-form',
@@ -14,6 +16,7 @@ import { SessionStorageService } from '../shared/services/local-storage.service'
 export class StavebniDenikFormComponent implements OnInit {
   private stavebniDenikForm: FormGroup;
   private zakazka: IZakazka;
+  zaznamyDeniku$: Observable<IStavebniDenik[]>;
 
   constructor(
     private route: ActivatedRoute,
@@ -25,6 +28,7 @@ export class StavebniDenikFormComponent implements OnInit {
     route.params.subscribe(x => {
       zakazkaService.getById(x.id).subscribe(y =>{
         this.zakazka = y
+        this.zaznamyDeniku$ = this.stavebniDenikService.ZaznamyZakazky(this.zakazka);
       },
       e => {
         console.log(e);
@@ -33,6 +37,9 @@ export class StavebniDenikFormComponent implements OnInit {
     this.stavebniDenikForm = this.fb.group({
       datum: new FormControl(new Date(Date.now()), Validators.required),
       popis: new FormControl("", Validators.required)});
+
+      var today = new Date();
+      this.stavebniDenikForm.controls['datum'].patchValue(today.getDate() + "-" + (today.getMonth()+1) + "-" + today.getFullYear());
   }
 
   ngOnInit() {
@@ -44,18 +51,21 @@ export class StavebniDenikFormComponent implements OnInit {
   }
 
   OnSubmit(){
-    var zaznam = <IStavebniDenik> {
-      Datum: this.stavebniDenikForm.controls['datum'].value,
-      Popis: this.stavebniDenikForm.contains['popis'].value,
-      Zakazka: this.zakazka,
-      Zamestnanec: this.sessionStorageService.GetCurrentUser()
+    var datum = this.stavebniDenikForm.controls['datum'].value;
+    var popis = this.stavebniDenikForm.controls["popis"].value;
+
+    var zaznam = <StavebniDenikPostModel> {
+      Datum: datum,
+      Popis: popis,
+      ZakazkaId: this.zakazka.Id,
+      ZamestnanecId: this.sessionStorageService.GetCurrentUser().Id
     }
 
     this.stavebniDenikService.PridatZaznam(zaznam).subscribe(x => {
-      console.log(x);
+      this.zaznamyDeniku$ = this.stavebniDenikService.ZaznamyZakazky(this.zakazka);
     }, 
     e => {
       console.log(e);
-    });
+    }).unsubscribe();
   }
 }
