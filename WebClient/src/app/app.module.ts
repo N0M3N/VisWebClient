@@ -20,6 +20,7 @@ import { DetailZakazkyComponent } from './detail-zakazky/detail-zakazky.componen
 import { KalkulaceComponent } from './kalkulace/kalkulace.component';
 import { StavebniDenikFormComponent } from './stavebni-denik-form/stavebni-denik-form.component';
 import { LoaderComponent } from './loader/loader.component';
+import { KalkulaceApiService } from './shared/services/kalkulace.service';
 
 @NgModule({
   declarations: [
@@ -50,6 +51,7 @@ import { LoaderComponent } from './loader/loader.component';
     LoginApiService,
     ZakazkaApiService,
     StavebniDenikApiService,
+    KalkulaceApiService,
     SessionStorageService
   ],
   bootstrap: [AppComponent],
