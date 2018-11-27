@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { IZakazka } from '../shared/models/zakazka.model';
 import { ActivatedRoute } from '@angular/router';
@@ -7,16 +7,18 @@ import { StavebniDenikApiService } from '../shared/services/stavebni-denik.servi
 import { IStavebniDenik } from '../shared/models/stavebni-denik.model';
 import { SessionStorageService } from '../shared/services/local-storage.service';
 import { StavebniDenikPostModel } from '../shared/models/stavebni-denik-post.model';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-stavebni-denik-form',
   templateUrl: './stavebni-denik-form.component.html'
 })
-export class StavebniDenikFormComponent implements OnInit {
+export class StavebniDenikFormComponent implements OnInit, OnDestroy {
   private stavebniDenikForm: FormGroup;
   private zakazka: IZakazka;
-  zaznamyDeniku$: Observable<IStavebniDenik[]>;
+  private zaznamyDeniku$: Observable<IStavebniDenik[]>;
+
+  private routeSubscription: Subscription;
 
   constructor(
     private route: ActivatedRoute,
@@ -25,15 +27,6 @@ export class StavebniDenikFormComponent implements OnInit {
     private sessionStorageService: SessionStorageService,
     private fb: FormBuilder
   ) {
-    route.params.subscribe(x => {
-      zakazkaService.getById(x.id).subscribe(y =>{
-        this.zakazka = y
-        this.zaznamyDeniku$ = this.stavebniDenikService.ZaznamyZakazky(this.zakazka);
-      },
-      e => {
-        console.log(e);
-      });
-    });
     this.stavebniDenikForm = this.fb.group({
       datum: new FormControl(new Date(Date.now()), Validators.required),
       popis: new FormControl("", Validators.required)});
@@ -42,7 +35,19 @@ export class StavebniDenikFormComponent implements OnInit {
       this.stavebniDenikForm.controls['datum'].patchValue(today.getDate() + "-" + (today.getMonth()+1) + "-" + today.getFullYear());
   }
 
-  ngOnInit() {
+  ngOnInit() {    
+    this.routeSubscription = this.route.params.subscribe(x => {
+      var zakazkaSubscription = this.zakazkaService.getById(x.id).subscribe(y =>{
+        this.zakazka = y
+        this.zaznamyDeniku$ = this.stavebniDenikService.ZaznamyZakazky(this.zakazka);
+      },
+      e => {
+        console.log(e);
+      }, 
+      () => {
+        zakazkaSubscription.unsubscribe();
+      });
+    });
   }
 
   controlValid(controlName: string) : boolean {
@@ -61,11 +66,18 @@ export class StavebniDenikFormComponent implements OnInit {
       ZamestnanecId: this.sessionStorageService.GetCurrentUser().Id
     }
 
-    this.stavebniDenikService.PridatZaznam(zaznam).subscribe(x => {
+    var stavebniDenikSubscription = this.stavebniDenikService.PridatZaznam(zaznam).subscribe(x => {
       this.zaznamyDeniku$ = this.stavebniDenikService.ZaznamyZakazky(this.zakazka);
     }, 
     e => {
       console.log(e);
-    }).unsubscribe();
+    }, 
+    () => {
+      stavebniDenikSubscription.unsubscribe();
+    });
+  }
+
+  ngOnDestroy() {
+    this.routeSubscription.unsubscribe();
   }
 }

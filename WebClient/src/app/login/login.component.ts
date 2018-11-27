@@ -1,6 +1,5 @@
 import { Component, OnInit, Output } from '@angular/core';
 import { FormBuilder, Validators, FormGroup, FormControl } from '@angular/forms';
-import { EventEmitter } from 'events';
 import { LoginModel } from '../shared/models/login.model';
 import { LoginApiService } from '../shared/services/login.service';
 import { SessionStorageService } from '../shared/services/local-storage.service';
@@ -12,8 +11,6 @@ import { Router } from '@angular/router';
 })
 
 export class LoginComponent implements OnInit {
-  @Output() userChanged: EventEmitter;
-
   private loginForm: FormGroup;
 
   constructor(
@@ -38,13 +35,13 @@ export class LoginComponent implements OnInit {
       model.password = this.loginForm.controls["password"].value;
 
       this.loginApi.login(model)
-      .subscribe(x => {
-        this.sessionStorage.SetCurrentUser(x);
-        this.router.navigate(["home"]);
-      },
-      e => {
-        console.log(e);
-      })
+        .subscribe(x => {
+          this.sessionStorage.SetCurrentUser(x);
+          this.router.navigate(["home"]);
+        },
+        e => {
+          console.log(e);
+      });
     }
   }
 

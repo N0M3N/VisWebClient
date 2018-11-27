@@ -4,16 +4,14 @@ import { SessionStorageService } from './shared/services/local-storage.service';
 
 @Component({
   selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.less']
+  templateUrl: './app.component.html'
 })
 export class AppComponent {
   private uzivatel : IUzivatel;
   title = 'WebClient';
 
-  constructor(
-    private sessionStorageService: SessionStorageService
-    ){}
+  constructor(private sessionStorageService: SessionStorageService)
+  { }
 
   currentUser(): IUzivatel {
     if(this.uzivatel == null){
