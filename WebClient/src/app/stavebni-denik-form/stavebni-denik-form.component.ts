@@ -2,7 +2,6 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { IZakazka } from '../shared/models/zakazka.model';
 import { ActivatedRoute } from '@angular/router';
-import { ZakazkaApiService } from '../shared/services/zakazka.service';
 import { StavebniDenikApiService } from '../shared/services/stavebni-denik.service';
 import { IStavebniDenik } from '../shared/models/stavebni-denik.model';
 import { SessionStorageService } from '../shared/services/local-storage.service';
@@ -19,11 +18,9 @@ export class StavebniDenikFormComponent implements OnInit, OnDestroy {
   private zaznamyDeniku$: Observable<IStavebniDenik[]>;
 
   private routeSubscription: Subscription;
-  private zakazkaSubscription: Subscription;
 
   constructor(
     private route: ActivatedRoute,
-    private zakazkaService: ZakazkaApiService,
     private stavebniDenikService: StavebniDenikApiService,
     private sessionStorageService: SessionStorageService,
     private fb: FormBuilder
@@ -38,16 +35,10 @@ export class StavebniDenikFormComponent implements OnInit, OnDestroy {
 
   ngOnInit() {    
     this.routeSubscription = this.route.params.subscribe(x => {
-      this.zakazkaSubscription = this.zakazkaService.getById(x.id).subscribe(y =>{
-        this.zakazka = y
-        this.zaznamyDeniku$ = this.stavebniDenikService.ZaznamyZakazky(this.zakazka);
-      },
-      e => {
-        console.log(e);
-      });
-    }, 
-    e => console.log(e),
-    () => this.zakazkaSubscription.unsubscribe());
+      this.zakazka = this.sessionStorageService.GetLatestZakazka(x.id);
+      this.zaznamyDeniku$ = this.stavebniDenikService.ZaznamyZakazky(this.zakazka);
+    },
+    e => console.log(e));
   }
 
   controlValid(controlName: string) : boolean {
@@ -68,13 +59,9 @@ export class StavebniDenikFormComponent implements OnInit, OnDestroy {
 
     var stavebniDenikSubscription = this.stavebniDenikService.PridatZaznam(zaznam).subscribe(x => {
       this.zaznamyDeniku$ = this.stavebniDenikService.ZaznamyZakazky(this.zakazka);
-    }, 
-    e => {
-      console.log(e);
     },
-    () => {
-      stavebniDenikSubscription.unsubscribe();
-    });
+    e => console.log(e),
+    () => stavebniDenikSubscription.unsubscribe());
   }
 
   ngOnDestroy() {

@@ -1,3 +1,29 @@
-<p>
-  kalkulace works!
-</p>
+<table *ngIf="kalkulace" class="col-12">
+  <tr>
+    <th>Zamestnanec</th>
+    <th>Dochazka</th>
+    <th>Celkem hodin</th>
+    <th>Sazba</th>
+    <th>Mzda</th>
+  </tr>
+  <tr *ngFor="let naklady of kalkulace.MzdoveNaklady">
+    <td>{{naklady.Zamestnanec.Jmeno}} {{naklady.Zamestnanec.Prijmeni}}</td>
+    <td>
+      <span *ngFor="let dochazka of naklady.Dochazka">
+        {{dochazka.Datum}} {{dochazka.OdpracovanychHodin}}
+      </span>
+    </td>
+    <td>
+      {{naklady.CelkemHodin}}
+    </td>
+    <td>
+      {{naklady.Sazba}}
+    </td>
+    <td>
+      {{naklady.Mzda}}
+    </td>
+  </tr>
+</table>
+<span class="float-right m-2">
+<b>CELKEM: {{kalkulace.CelkoveMzdy}}</b>
+</span>

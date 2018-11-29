@@ -1,10 +1,10 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ZakazkaApiService } from '../shared/services/zakazka.service';
 import { IZakazka } from '../shared/models/zakazka.model';
 import { IStavebniDenik } from '../shared/models/stavebni-denik.model';
 import { Observable, Subscription } from 'rxjs';
 import { StavebniDenikApiService } from '../shared/services/stavebni-denik.service';
+import { SessionStorageService } from '../shared/services/local-storage.service';
 
 @Component({
   selector: 'app-detail-zakazky',
@@ -15,26 +15,18 @@ export class DetailZakazkyComponent implements OnInit, OnDestroy {
   private zaznamyDeniku$: Observable<IStavebniDenik[]>;
 
   private routerSubscription: Subscription;
-  private zakazkaSubscription: Subscription;
 
   constructor(private route: ActivatedRoute,
-    private zakazkaService: ZakazkaApiService,
+    private sessionStorageService: SessionStorageService,
     private stavebniDenikService: StavebniDenikApiService) 
   { }
 
   ngOnInit() {    
     this.routerSubscription = this.route.params.subscribe(x => {
-      this.zakazkaSubscription = this.zakazkaService.getById(x.id).subscribe(y => {
-      this.zakazka = y;
+      this.zakazka = this.sessionStorageService.GetLatestZakazka(x.id);
       this.zaznamyDeniku$ = this.stavebniDenikService.ZaznamyZakazky(this.zakazka);
     },
-    e => {
-      console.log(e);
-    },
-    () => {
-      this.zakazkaSubscription.unsubscribe();
-    })
-  });
+    e => console.log(e));
   }
 
   ngOnDestroy(): void {

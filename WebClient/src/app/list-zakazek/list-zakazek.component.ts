@@ -41,7 +41,9 @@ export class ListZakazekComponent implements OnInit, OnDestroy {
   }
 
   getUrl(){
-    return "/" + this.nextPage + "/" + this.selection.selected[0].Id;
+    var zakazka = this.selection.selected[0];
+    this.sessionStorageService.SetLatestZakazka(zakazka);
+    return "/" + this.nextPage + "/" + zakazka.Id;
   }
 
   ngOnDestroy() {

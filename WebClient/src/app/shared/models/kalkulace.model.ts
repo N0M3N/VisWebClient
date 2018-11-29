@@ -1,8 +1,6 @@
-import { IZakazka } from "./zakazka.model";
 import { IUzivatel } from "./uzivatel.model";
 
 export interface IKalkulace {
-  Zakazka : IZakazka;
   MzdoveNaklady: IMzdoveNaklady[];
   CelkoveMzdy: number;
 }

@@ -4,6 +4,7 @@ import { KalkulaceApiService } from '../shared/services/kalkulace.service';
 import { ZakazkaApiService } from '../shared/services/zakazka.service';
 import { Subscription } from 'rxjs';
 import { IKalkulace } from '../shared/models/kalkulace.model';
+import { SessionStorageService } from '../shared/services/local-storage.service';
 
 @Component({
   selector: 'app-kalkulace',
@@ -12,34 +13,24 @@ import { IKalkulace } from '../shared/models/kalkulace.model';
 export class KalkulaceComponent implements OnInit, OnDestroy {
   private kalkulace: IKalkulace;
 
-  private zakazkaSubscription: Subscription;
   private routeSubscription: Subscription;
   private kalkulaceSubscription: Subscription;
 
   constructor(private route: ActivatedRoute,
-    private kalkuaceService: KalkulaceApiService,
-    private zakazkaService: ZakazkaApiService) { }
+    private sessionStorageService: SessionStorageService,
+    private kalkuaceService: KalkulaceApiService,) { }
 
   ngOnInit() {
     this.routeSubscription = this.route.params.subscribe(x => {
-      this.zakazkaSubscription = this.zakazkaService.getById(x.id).subscribe(y => {
-        this.kalkulaceSubscription = this.kalkuaceService.Kalkulace(y).subscribe(z => {
-          this.kalkulace = z;
-          console.log(z);
-        })
-      }, 
-      e => {
-        console.log(e);
+      this.kalkuaceService.Kalkulace(this.sessionStorageService.GetLatestZakazka(x.id)).subscribe(y => {
+        this.kalkulace = y;
       },
-      () => this.kalkulaceSubscription.unsubscribe());  
-    },
-    e => {
-      console.log(e);
-    },
-    () => this.zakazkaSubscription.unsubscribe());
+        e => console.log(e));
+    });
   }
 
   ngOnDestroy() {
     this.routeSubscription.unsubscribe();
+    this.kalkulaceSubscription.unsubscribe();
   }
 }
