@@ -19,6 +19,7 @@ export class StavebniDenikFormComponent implements OnInit, OnDestroy {
   private zaznamyDeniku$: Observable<IStavebniDenik[]>;
 
   private routeSubscription: Subscription;
+  private zakazkaSubscription: Subscription;
 
   constructor(
     private route: ActivatedRoute,
@@ -37,17 +38,16 @@ export class StavebniDenikFormComponent implements OnInit, OnDestroy {
 
   ngOnInit() {    
     this.routeSubscription = this.route.params.subscribe(x => {
-      var zakazkaSubscription = this.zakazkaService.getById(x.id).subscribe(y =>{
+      this.zakazkaSubscription = this.zakazkaService.getById(x.id).subscribe(y =>{
         this.zakazka = y
         this.zaznamyDeniku$ = this.stavebniDenikService.ZaznamyZakazky(this.zakazka);
       },
       e => {
         console.log(e);
-      }, 
-      () => {
-        zakazkaSubscription.unsubscribe();
       });
-    });
+    }, 
+    e => console.log(e),
+    () => this.zakazkaSubscription.unsubscribe());
   }
 
   controlValid(controlName: string) : boolean {
@@ -71,7 +71,7 @@ export class StavebniDenikFormComponent implements OnInit, OnDestroy {
     }, 
     e => {
       console.log(e);
-    }, 
+    },
     () => {
       stavebniDenikSubscription.unsubscribe();
     });

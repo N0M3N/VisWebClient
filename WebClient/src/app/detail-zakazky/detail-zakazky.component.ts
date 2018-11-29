@@ -30,12 +30,14 @@ export class DetailZakazkyComponent implements OnInit, OnDestroy {
     },
     e => {
       console.log(e);
+    },
+    () => {
+      this.zakazkaSubscription.unsubscribe();
     })
   });
   }
 
   ngOnDestroy(): void {
     this.routerSubscription.unsubscribe();
-    this.zakazkaSubscription.unsubscribe();
   }
 }

@@ -9,6 +9,6 @@ export class KalkulaceApiService {
   constructor(private http: HttpClient) { }
 
   public Kalkulace(zakazka: IZakazka) : Observable<IKalkulace> {
-    return this.http.get<IKalkulace>('https://localhost:3407/kalkulace/' + zakazka.Id);
+    return this.http.get<IKalkulace>('http://localhost:3407/kalkulace/' + zakazka.Id);
   }
 }
