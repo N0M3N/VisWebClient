@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { IZakazka } from '../shared/models/zakazka.model';
 import { ActivatedRoute } from '@angular/router';
@@ -6,18 +6,16 @@ import { StavebniDenikApiService } from '../shared/services/stavebni-denik.servi
 import { IStavebniDenik } from '../shared/models/stavebni-denik.model';
 import { SessionStorageService } from '../shared/services/local-storage.service';
 import { StavebniDenikPostModel } from '../shared/models/stavebni-denik-post.model';
-import { Observable, Subscription } from 'rxjs';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-stavebni-denik-form',
   templateUrl: './stavebni-denik-form.component.html'
 })
-export class StavebniDenikFormComponent implements OnInit, OnDestroy {
+export class StavebniDenikFormComponent implements OnInit {
   private stavebniDenikForm: FormGroup;
   private zakazka: IZakazka;
   private zaznamyDeniku$: Observable<IStavebniDenik[]>;
-
-  private routeSubscription: Subscription;
 
   constructor(
     private route: ActivatedRoute,
@@ -25,6 +23,12 @@ export class StavebniDenikFormComponent implements OnInit, OnDestroy {
     private sessionStorageService: SessionStorageService,
     private fb: FormBuilder
   ) {
+    this.route.params.subscribe(x => {
+      this.zakazka = this.sessionStorageService.GetLatestZakazka(x.id);
+      this.zaznamyDeniku$ = this.stavebniDenikService.ZaznamyZakazky(this.zakazka);
+    },
+    e => console.log(e));
+
     this.stavebniDenikForm = this.fb.group({
       datum: new FormControl(new Date(Date.now()), Validators.required),
       popis: new FormControl("", Validators.required)});
@@ -33,12 +37,7 @@ export class StavebniDenikFormComponent implements OnInit, OnDestroy {
       this.stavebniDenikForm.controls['datum'].patchValue(today.getDate() + "-" + (today.getMonth()+1) + "-" + today.getFullYear());
   }
 
-  ngOnInit() {    
-    this.routeSubscription = this.route.params.subscribe(x => {
-      this.zakazka = this.sessionStorageService.GetLatestZakazka(x.id);
-      this.zaznamyDeniku$ = this.stavebniDenikService.ZaznamyZakazky(this.zakazka);
-    },
-    e => console.log(e));
+  ngOnInit() {
   }
 
   controlValid(controlName: string) : boolean {
@@ -62,9 +61,5 @@ export class StavebniDenikFormComponent implements OnInit, OnDestroy {
     },
     e => console.log(e),
     () => stavebniDenikSubscription.unsubscribe());
-  }
-
-  ngOnDestroy() {
-    this.routeSubscription.unsubscribe();
   }
 }

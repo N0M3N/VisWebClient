@@ -26,6 +26,10 @@ body {
   }
 }
 
+main {
+  overflow: auto;
+}
+
 details {
   color: @accent5;
   border: 1px @accent2 solid;
@@ -61,6 +65,15 @@ details {
       }
     }
   }
+}
+
+.rotate90 {
+  max-width: 30px;
+  transform: rotate(-90deg);
+  -webkit-transform: rotate(-90deg);
+  -moz-transform: rotate(-90deg);
+  -ms-transform: rotate(-90deg);
+  -o-transform: rotate(-90deg);
 }
 
 app-loader {

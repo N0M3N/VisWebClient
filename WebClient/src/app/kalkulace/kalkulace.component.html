@@ -1,29 +1,29 @@
-<table *ngIf="kalkulace" class="col-12">
-  <tr>
+<table *ngIf="kalkulace" class="col-12 col-sm-12 col-md-12 col-lg-12">
+  <tr style="white-space: nowrap; line-height: 9em;">
     <th>Zamestnanec</th>
-    <th>Dochazka</th>
-    <th>Celkem hodin</th>
-    <th>Sazba</th>
-    <th>Mzda</th>
+    <th class="rotate90" *ngFor="let doch of kalkulace.MzdoveNaklady[0].Dochazka">
+      {{doch.Datum}}
+    </th>
+    <th class="rotate90">Celkem hodin</th>
+    <th class="rotate90">Sazba</th>
+    <th class="rotate90">Mzda</th>
   </tr>
   <tr *ngFor="let naklady of kalkulace.MzdoveNaklady">
     <td>{{naklady.Zamestnanec.Jmeno}} {{naklady.Zamestnanec.Prijmeni}}</td>
-    <td>
-      <span *ngFor="let dochazka of naklady.Dochazka">
-        {{dochazka.Datum}} {{dochazka.OdpracovanychHodin}}
-      </span>
+    <td class="border border-dark" style="text-align: center" *ngFor="let dochazka of naklady.Dochazka">
+      {{dochazka.OdpracovanychHodin}}
     </td>
-    <td>
+    <td style="text-align: center">
       {{naklady.CelkemHodin}}
     </td>
-    <td>
+    <td style="text-align: center">
       {{naklady.Sazba}}
     </td>
-    <td>
+    <td style="text-align: center">
       {{naklady.Mzda}}
     </td>
   </tr>
 </table>
-<span class="float-right m-2">
-<b>CELKEM: {{kalkulace.CelkoveMzdy}}</b>
+<span class="float-right m-3">
+<b>{{kalkulace.CelkoveMzdy}}</b>
 </span>
