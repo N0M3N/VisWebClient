@@ -19,7 +19,8 @@
     <div class="col-12 p-0">
       <details open class="m-1">
         <summary>Adresa</summary>
-        {{zakazka.Adresa}}
+        <div class="col-12 e2e-iframe-trusted-src">{{zakazka.Adresa}}</div>
+        <agm-map [latitude]="49.8327622" [longitude]="18.1589973"></agm-map>
       </details>
     </div>
     <div class="col-12 p-0">

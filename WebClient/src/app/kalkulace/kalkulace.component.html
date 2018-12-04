@@ -1,15 +1,15 @@
 <table *ngIf="kalkulace" class="col-12 col-sm-12 col-md-12 col-lg-12">
   <tr style="white-space: nowrap; line-height: 9em;">
     <th>Zamestnanec</th>
-    <th class="rotate90" *ngFor="let doch of kalkulace.MzdoveNaklady[0].Dochazka">
+    <th class="rotate90" style="text-align: center" *ngFor="let doch of kalkulace.MzdoveNaklady[0].Dochazka">
       {{doch.Datum}}
     </th>
-    <th class="rotate90">Celkem hodin</th>
-    <th class="rotate90">Sazba</th>
-    <th class="rotate90">Mzda</th>
+    <th class="rotate90" style="text-align: center">Celkem hodin</th>
+    <th class="rotate90" style="text-align: center">Sazba</th>
+    <th class="rotate90" style="text-align: center">Mzda</th>
   </tr>
   <tr *ngFor="let naklady of kalkulace.MzdoveNaklady">
-    <td>{{naklady.Zamestnanec.Jmeno}} {{naklady.Zamestnanec.Prijmeni}}</td>
+    <th>{{naklady.Zamestnanec.Jmeno}} {{naklady.Zamestnanec.Prijmeni}}</th>
     <td class="border border-dark" style="text-align: center" *ngFor="let dochazka of naklady.Dochazka">
       {{dochazka.OdpracovanychHodin}}
     </td>

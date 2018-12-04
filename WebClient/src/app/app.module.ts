@@ -5,6 +5,7 @@ import { HttpClientModule } from '@angular/common/http'
 import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { MatInputModule, MatCheckboxModule, MatPaginatorModule, MatProgressSpinnerModule, MatSortModule, MatTableModule } from "@angular/material";
+import { AgmCoreModule } from '@agm/core';
 
 import { LoginApiService } from './shared/services/login.service';
 import { ZakazkaApiService } from './shared/services/zakazka.service';
@@ -45,7 +46,10 @@ import { KalkulaceApiService } from './shared/services/kalkulace.service';
     MatPaginatorModule,
     MatProgressSpinnerModule,
     MatSortModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    AgmCoreModule.forRoot(
+      {apiKey: "AIzaSyB5kLf_05mqPl8ADD3jBAOBIzxhuWxeNtA"}
+      )
   ],
   providers: [
     LoginApiService,

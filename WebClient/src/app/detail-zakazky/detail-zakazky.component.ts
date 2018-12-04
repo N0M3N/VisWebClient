@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { IZakazka } from '../shared/models/zakazka.model';
 import { IStavebniDenik } from '../shared/models/stavebni-denik.model';
-import { Observable, Subscription } from 'rxjs';
+import { Observable } from 'rxjs';
 import { StavebniDenikApiService } from '../shared/services/stavebni-denik.service';
 import { SessionStorageService } from '../shared/services/local-storage.service';
 
@@ -26,5 +26,16 @@ export class DetailZakazkyComponent implements OnInit {
   }
 
   ngOnInit() {   
+  }
+
+  getAddress() : string {
+    var address =  this.zakazka.Adresa;
+    var replaced = address.replace(" ", "+");
+    while(address != replaced){
+      address = replaced;
+      replaced = address.replace(" ", "+");
+      console.log(address);
+    }
+    return "https://www.google.com/maps/embed/v1/place?key=AIzaSyB5kLf_05mqPl8ADD3jBAOBIzxhuWxeNtA&q=" + address; 
   }
 }
